@@ -1,0 +1,100 @@
+#!/bin/zsh
+
+SPDS=~/work/SPDSAPIModelDocumentation
+AMDS=~/work/AMDSAPISwaggerModels
+SPECDOCS=~/work/SpectrumDocs
+STAGING=~/work/staging
+SPAPID=~/work/selling-partner-api-docs
+SPAPIM=~/work/selling-partner-api-models
+
+# pull AMDS
+function pamds()
+{
+    WD=`pwd`
+    cd $AMDS
+    git checkout APIG
+    git pull
+    cd $WD
+}
+
+# get from AMDS
+function gamds()
+{
+    WD=`pwd`
+    cd $AMDS/swagger-models
+    for file in `ls | grep "$1"`
+        cp $file $WD
+    cd $WD
+}
+
+# pull SpectrumDocs
+function psd()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git checkout mainline
+    git pull
+    cd $WD
+}
+
+# commit to spec docs
+function cmtsd()
+{
+    WD=`pwd`
+    cp $1 $SPECDOCS/models
+    cd $SPECDOCS/models
+    git add $1
+    git commit
+    cd $WD
+}
+
+function pushsd()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git push
+    cd $WD
+}
+
+# make feature and tracking
+function mkft()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git checkout -b $1
+    git push -u origin $1
+    cd $WD
+}
+
+# pull SPDSAPISwaggerModels
+function pspds()
+{
+    WD=`pwd`
+    cd $SPDS
+    git checkout APIG
+    git pull
+    cd $WD
+}
+
+# get a file from SPDS
+function gspds()
+{
+    WD=`pwd`
+    cd $SPDS/markdown
+    for file in `ls | grep "$1"`
+        cp $file $WD
+    cd $WD
+}
+
+# pull selling partner api docs and models
+function pspapi()
+{
+    WD=`pwd`
+    cd $SPAPID
+    git checkout main
+    git pull
+    cd $SPAPIM
+    git checkout main
+    git pull
+    cd $WD
+}
