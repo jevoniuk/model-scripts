@@ -37,7 +37,7 @@ function psd()
     cd $WD
 }
 
-# commit to spec docs
+# commit to SpectrumDocs
 function cmtsd()
 {
     WD=`pwd`
@@ -48,6 +48,7 @@ function cmtsd()
     cd $WD
 }
 
+# push SpectrumDocs
 function pushsd()
 {
     WD=`pwd`
