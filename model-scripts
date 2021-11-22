@@ -37,7 +37,7 @@ function psd()
     cd $WD
 }
 
-# commit to SpectrumDocs
+# commit to spec docs
 function cmtsd()
 {
     WD=`pwd`
@@ -48,7 +48,7 @@ function cmtsd()
     cd $WD
 }
 
-# push SpectrumDocs
+# push spec docs
 function pushsd()
 {
     WD=`pwd`
@@ -97,5 +97,14 @@ function pspapi()
     cd $SPAPIM
     git checkout main
     git pull
+    cd $WD
+}
+
+# display the name of the current branch of SpectrumDocs
+function brsd()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git branch
     cd $WD
 }
