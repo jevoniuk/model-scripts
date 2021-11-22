@@ -110,7 +110,7 @@ function brsd()
 }
 
 # remove branch from SpectrumDocs
-function rmbrsd()
+function rmft()
 {
     WD=`pwd`
     cd $SPECDOCS
