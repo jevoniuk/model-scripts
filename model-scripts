@@ -108,3 +108,30 @@ function brsd()
     git branch
     cd $WD
 }
+
+# remove branch from SpectrumDocs
+function rmbrsd()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git branch -d $1 && git push origin --delete $1
+    cd $WD
+}
+
+# git status SpectrumDocs
+function gstsd()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git status
+    cd $WD
+}
+
+# checkout branch in SpectrumDocs
+function ckoutsd()
+{
+    WD=`pwd`
+    cd $SPECDOCS
+    git checkout $1
+    cd $WD
+}
