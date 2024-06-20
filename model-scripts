@@ -6,85 +6,95 @@ SPECDOCS=~/work/SpectrumDocs
 STAGING=~/work/staging
 SPAPID=~/work/selling-partner-api-docs
 SPAPIM=~/work/selling-partner-api-models
+UPGL=~/work/ParasolUsagePlanGenerationLambda
 
 # pull AMDS
 function pamds()
 {
-    WD=`pwd`
     cd $AMDS
     git checkout APIG
     git pull
-    cd $WD
+    cd $OLDPWD
+}
+
+#pull Parasol
+function pupgl() {
+    cd $UPGL
+    git pull
+    cd $OLDPWD
 }
 
 # get from AMDS
 function gamds()
 {
-    WD=`pwd`
     cd $AMDS/swagger-models
+    echo 'Retrieved:'
     for file in `ls | grep "$1"`
-        cp $file $WD
-    cd $WD
+    do
+        echo "    - $file"
+        cp $file $OLDPWD
+    done
+    cd $OLDPWD
 }
 
-# pull SpectrumDocs
+# pull mainline branch of SpectrumDocs
 function psd()
 {
-    WD=`pwd`
     cd $SPECDOCS
-    git checkout mainline
+    BRANCH=`git rev-parse --abbrev-ref HEAD`
+    git checkout mainline &> /dev/null
     git pull
-    cd $WD
+    git checkout $BRANCH &> /dev/null
+    cd $OLDPWD
 }
 
 # commit to spec docs
 function cmtsd()
 {
-    WD=`pwd`
     cp $1 $SPECDOCS/models
     cd $SPECDOCS/models
     git add $1
     git commit
-    cd $WD
+    cd $OLDPWD
 }
 
 # push spec docs
 function pushsd()
 {
-    WD=`pwd`
     cd $SPECDOCS
     git push
-    cd $WD
+    cd $OLDPWD
 }
 
 # make feature and tracking
 function mkft()
 {
-    WD=`pwd`
     cd $SPECDOCS
     git checkout -b $1
     git push -u origin $1
-    cd $WD
+    cd $OLDPWD
 }
 
 # pull SPDSAPISwaggerModels
 function pspds()
 {
-    WD=`pwd`
     cd $SPDS
     git checkout APIG
     git pull
-    cd $WD
+    cd $OLDPWD
 }
 
 # get a file from SPDS
 function gspds()
 {
-    WD=`pwd`
     cd $SPDS/markdown
+    echo 'Retrieved:'
     for file in `ls | grep "$1"`
-        cp $file $WD
-    cd $WD
+    do
+        echo "    - $file"
+        cp $file $OLDPWD
+    done
+    cd $OLDPWD
 }
 
 # pull selling partner api docs and models
@@ -103,35 +113,31 @@ function pspapi()
 # display the name of the current branch of SpectrumDocs
 function brsd()
 {
-    WD=`pwd`
     cd $SPECDOCS
     git branch
-    cd $WD
+    cd $OLDPWD
 }
 
 # remove branch from SpectrumDocs
 function rmft()
 {
-    WD=`pwd`
     cd $SPECDOCS
-    git branch -d $1 && git push origin --delete $1
-    cd $WD
+    git branch -D $1 && git push origin --delete $1
+    cd $OLDPWD
 }
 
 # git status SpectrumDocs
 function gstsd()
 {
-    WD=`pwd`
     cd $SPECDOCS
     git status
-    cd $WD
+    cd $OLDPWD
 }
 
 # checkout branch in SpectrumDocs
 function ckoutsd()
 {
-    WD=`pwd`
     cd $SPECDOCS
     git checkout $1
-    cd $WD
+    cd $OLDPWD
 }
